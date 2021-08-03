@@ -42,12 +42,15 @@ def update(request, id):
     s = Student.objects.get(id=id)
     if request.method == "POST":
         data = request.POST
-        s.Iemail = data['email']
-        s.Iusername = data['username']
-        s.Iaddress = data['address']
+        s.email = data['email']
+        s.username = data['username']
+        s.address = data['address']
         s.save()
-        messages.success(request, 'data was updated')
-        return redirect('/')
+        if s:
+            messages.success(request, 'data was updated')
+            return redirect('/')
+        else:
+            messages.warning(request, 'failed')
     contex = {'student':s}
     return render(request, 'crud/update.html', contex)
 
