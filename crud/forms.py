@@ -1,14 +1,27 @@
 from django import forms
 from django.contrib import messages
 from django.core import validators
+from django.core.exceptions import ValidationError
+from django.forms import fields, models, widgets
+from .models import Student
 
-class StudentForm(forms.Form):
-    username = forms.CharField(max_length=500, widget=forms.TextInput(attrs={'class':'form-control', 'placceholder':'enter username'}))
-    email = forms.EmailField(max_length=500, widget=forms.EmailInput(attrs={'class':'form-control', 'placceholder':'enter email address'}))
-    address = forms.CharField(max_length=500, widget=forms.TextInput(attrs={'class':'form-control', 'placceholder':'enter address'}))
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
-    def validation(self):
-        username = self.cleaned_data['username']
-        if username!='abc':
-            raise forms.ValidationError("invalid username")
-        return username
+
+class StudentForm(forms.ModelForm):
+    class Meta:
+        model = Student
+        fields = ['address', 'email', 'username']  #'__all__'  #
+
+
+        # widgets = {
+        #     "address" : forms.TextInput(attrs={"class":"form-control"})
+        # }
+
+
+
+class UserRegister(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username', 'password1', 'password2'] 
