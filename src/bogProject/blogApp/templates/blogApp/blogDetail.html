@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+    <div class="container my-5">
+
+          <h5>{{ object.title }}</h5><hr>
+
+          <figure>
+              <img src="{{ object.prictue.url }}" alt="">
+          </figure>
+
+          <p>{{ object.article }}</p>
+
+          <p>category:{{ object.category }}</p>
+          
+          {% for i in object.tags.all %}
+          <p>Tags:{{ i.name }}</p>
+          {% endfor %}
+              
+      
+     
+          
+    </div>
+
+{% endblock content %}

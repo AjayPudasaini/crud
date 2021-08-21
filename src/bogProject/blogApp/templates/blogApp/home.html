@@ -5,6 +5,30 @@
 {% block content %}
     <div class="container my-5">
       
+      {% for p in blog %}
+          <p>created by:{{ p.author.username }} <figure>
+              <img src="{{ p.author.user.profilePicture.url }}" alt="">
+          </figure></p> created at:{{ p.created_at }}<br>
+          <a href=" {% url 'detail' p.id %} "><h5>{{ p.title }}</h5><hr></a>
+
+          <figure>
+              <img src="{{ p.prictue.url }}" alt="">
+          </figure>
+
+          <p>{{ p.article|slice:":300" }}...</p>
+
+          <p>category:{{ p.category }}</p>
+          
+          {% for i in p.tags.all %}
+          <p>Tags:{{ i.name }}</p>
+          {% endfor %}
+
+          <hr>
+              
+          
+
+      {% endfor %}
+          
     </div>
 
 {% endblock content %}
