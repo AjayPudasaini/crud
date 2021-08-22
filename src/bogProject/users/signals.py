@@ -10,6 +10,7 @@ def create_profile(sender, instance, created, **kwargs):
         print('profile created')
 
 @receiver(post_save, sender=User)
-def profile_update(sender, instance, **kwargs):
-    instance.profile.save()
-    print('profile updated')
+def profile_update(sender, created, instance, **kwargs):
+    if created == True:
+        instance.profile.save()
+        print('profile updated')

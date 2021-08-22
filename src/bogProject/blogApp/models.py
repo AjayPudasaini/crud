@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.urls import reverse
+
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
@@ -27,4 +29,7 @@ class BlogPost(models.Model):
 
     def __str__(self) -> str:
         return f"{self.author}'s blog post "
+
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'pk': self.pk})
 
